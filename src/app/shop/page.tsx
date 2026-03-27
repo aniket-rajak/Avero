@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 function ShopContent() {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get("category");
+  const searchQuery = searchParams.get("search");
   
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<ProductCategory[]>([]);
@@ -27,7 +28,15 @@ function ShopContent() {
         
         setCategories(catsData);
         
-        if (categorySlug) {
+        if (searchQuery) {
+          setSelectedCategory(null);
+          const filtered = prodsData.filter((p: Product) => 
+            p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            p.short_description?.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+          setProducts(filtered);
+        } else if (categorySlug) {
           setSelectedCategory(categorySlug);
           const filtered = prodsData.filter((p: Product) => 
             p.categories.some((c: ProductCategory) => 
@@ -52,9 +61,10 @@ function ShopContent() {
       }
     }
     fetchData();
-  }, [categorySlug]);
+  }, [categorySlug, searchQuery]);
 
   const getCategoryName = () => {
+    if (searchQuery) return `Search: "${searchQuery}"`;
     if (!selectedCategory) return "All Products";
     const cat = categories.find(c => c.slug === selectedCategory);
     return cat ? cat.name : selectedCategory;

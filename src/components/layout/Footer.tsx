@@ -97,10 +97,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-          <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Store. All rights reserved.
-          </p>
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="text-center space-y-2">
+            <p className="text-sm text-gray-400">
+              © 2026 Avero. All rights reserved.
+            </p>
+            <p className="text-sm text-gray-500">
+              Proudly designed and developed by{" "}
+              <span className="text-amber-400 font-medium">Four I.</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              Special thanks to{" "}
+              <span className="text-amber-400 font-medium">Aniket Rajak</span> for his contribution.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
