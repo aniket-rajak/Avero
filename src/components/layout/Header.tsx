@@ -1,14 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingBag, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useCart } from '@/components/providers/CartProvider';
+import { useWishlist } from '@/components/providers/WishlistProvider';
 import SearchModal from './SearchModal';
 import UserMenu from './UserMenu';
 
 export default function Header() {
   const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -55,6 +57,14 @@ export default function Header() {
                 <Search size={20} />
               </button>
               <UserMenu />
+              <Link href="/wishlist" className="cursor-pointer p-2 hover:bg-neutral-100 rounded-full transition-colors relative" aria-label="Wishlist">
+                <Heart size={20} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-black text-white text-xs flex items-center justify-center rounded-full">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
               <Link href="/cart" className="cursor-pointer p-2 hover:bg-neutral-100 rounded-full transition-colors relative" aria-label="Cart">
                 <ShoppingBag size={20} />
                 {itemCount > 0 && (

@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import { CartProvider } from "@/components/providers/CartProvider";
+import { WishlistProvider } from "@/components/providers/WishlistProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 
 const dmSans = DM_Sans({
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className={`${dmSans.variable} h-full font-sans antialiased`}>
         <AuthProvider>
           <CartProvider>
+          <WishlistProvider>
           <Header />
           <main className="pt-16 flex-1">{children}</main>
           <footer className="bg-neutral-900 text-white py-16">
@@ -75,8 +77,9 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
-        </CartProvider>
-        </AuthProvider>
+          </WishlistProvider>
+          </CartProvider>
+          </AuthProvider>
       </body>
     </html>
   );
